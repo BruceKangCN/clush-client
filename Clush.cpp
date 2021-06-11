@@ -15,14 +15,20 @@ Clush::Clush(QWidget* parent)
     ui->userWidget->setModel(userListModel);
     ui->groupWidget->setModel(groupListModel);
 
-    LoginDialog loginDialog = LoginDialog(this);
-    // TODO: handle login message, exit when clicked [x]
-    loginDialog.exec();
+    LoginDialog* loginDialog = new LoginDialog(this);
+    connect(loginDialog, &LoginDialog::requestLogin, this, &Clush::handleLogin);
+    loginDialog->exec();
+    delete loginDialog;
 }
 
 Clush::~Clush()
 {
     delete ui;
+}
+
+void Clush::handleLogin(const QString& user, const QString& password)
+{
+    // TODO: handle login
 }
 
 } // namespace clush

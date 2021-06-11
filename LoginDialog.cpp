@@ -29,7 +29,8 @@ void LoginDialog::on_loginBtn_clicked()
 
     emit requestLogin(user, password);
 
-    // for test, skip verification
+    // for test only, skip verification
+    // TODO: verify
     this->accept();
 }
 

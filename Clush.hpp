@@ -24,6 +24,9 @@ public:
     Clush(QWidget* parent = nullptr);
     ~Clush();
 
+private slots:
+    void handleLogin(const QString& user, const QString& password);
+
 private:
     Ui::Clush* ui;
 
