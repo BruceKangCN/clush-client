@@ -9,19 +9,25 @@ CONFIG += c++20
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ContactWidget.cpp \
     DialogWidget.cpp \
+    LoginDialog.cpp \
     Message.cpp \
     main.cpp \
     Clush.cpp
 
 HEADERS += \
     Clush.hpp \
+    ContactWidget.hpp \
     DialogWidget.hpp \
+    LoginDialog.hpp \
     Message.hpp
 
 FORMS += \
     Clush.ui \
+    ContactWidget.ui \
     DialogWidget.ui \
+    LoginDialog.ui \
     Message.ui
 
 # Default rules for deployment.

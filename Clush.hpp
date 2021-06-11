@@ -2,9 +2,9 @@
 #define CLUSH_HPP
 
 #include "DialogWidget.hpp"
+#include "ContactWidget.hpp"
 
 #include <QWidget>
-#include <QTcpServer>
 #include <QTcpSocket>
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -24,21 +24,11 @@ public:
     Clush(QWidget* parent = nullptr);
     ~Clush();
 
-private slots:
-    void receiveNewConnection();
-    void dialogChangeName(const QModelIndex& index);
-
-    void on_listenBtn_clicked(); // start listening when the button clicked
-    void on_connectBtn_clicked();
-    void on_contactList_clicked(const QModelIndex& index);
-
 private:
     Ui::Clush* ui;
 
-    QTcpServer* server;
-    QStandardItemModel* model;
-
-    QVector<DialogWidget*> dialogVec;
+    QStandardItemModel* userListModel;
+    QStandardItemModel* groupListModel;
 };
 
 } // namespace clush

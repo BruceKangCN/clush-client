@@ -15,21 +15,20 @@ class DialogWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit DialogWidget(QTcpSocket* socket ,QWidget* parent = nullptr);
+    explicit DialogWidget(QWidget* parent = nullptr);
     ~DialogWidget();
 
     void setName(const QString& name = "");
 
 private slots:
-    void on_tabWidget_tabBarClicked(int index);
-    void on_sendBtn_clicked();
     void appendNewMessage();
     void keyPressEvent(QKeyEvent* ev);
 
+    void on_tabWidget_tabBarClicked(int index);
+    void on_sendBtn_clicked();
+
 private:
     Ui::DialogWidget* ui;
-
-    QTcpSocket* socket;
 };
 
 } // namespace clush
