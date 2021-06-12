@@ -14,14 +14,16 @@ SOURCES += \
     ui/DialogWidget.cpp \
     ui/LoginDialog.cpp \
     ui/Message.cpp \
-    ui/Clush.cpp
+    ui/Clush.cpp \
+    util/ClushFrame.cpp
 
 HEADERS += \
     ui/Clush.hpp \
     ui/ContactWidget.hpp \
     ui/DialogWidget.hpp \
     ui/LoginDialog.hpp \
-    ui/Message.hpp
+    ui/Message.hpp \
+    util/ClushFrame.hpp
 
 FORMS += \
     ui/Clush.ui \
