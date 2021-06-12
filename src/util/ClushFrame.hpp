@@ -19,6 +19,9 @@ class ClushFrame : public QObject
 {
     Q_OBJECT
 public:
+    static QByteArray quint32ToBytes(quint32 n);
+    static QByteArray quint64ToBytes(quint64 n);
+
     explicit ClushFrame(QObject* parent = nullptr);
 
     void setType(const MessageType type);
