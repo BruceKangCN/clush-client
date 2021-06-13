@@ -1,8 +1,8 @@
 #ifndef CLUSH_UTIL_CLUSHFRAME_HPP
 #define CLUSH_UTIL_CLUSHFRAME_HPP
 
-#include <QObject>
 #include <QByteArray>
+#include <QObject>
 
 namespace clush::util {
 
@@ -15,8 +15,7 @@ enum MessageType {
     GroupFileMessage = 4,
 };
 
-class ClushFrame : public QObject
-{
+class ClushFrame : public QObject {
     Q_OBJECT
 public:
     static QByteArray quint32ToBytes(quint32 n);
@@ -37,7 +36,6 @@ private:
     quint64 toId;
     quint64 size;
     QByteArray content;
-
 };
 
 } // namespace clush::util

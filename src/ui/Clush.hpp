@@ -1,23 +1,24 @@
 #ifndef CLUSH_HPP
 #define CLUSH_HPP
 
-#include "DialogWidget.hpp"
 #include "ContactWidget.hpp"
+#include "DialogWidget.hpp"
 
-#include <QWidget>
-#include <QTcpSocket>
-#include <QStandardItemModel>
 #include <QStandardItem>
+#include <QStandardItemModel>
+#include <QTcpSocket>
 #include <QVector>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Clush; }
+namespace Ui {
+class Clush;
+}
 QT_END_NAMESPACE
 
 namespace clush {
 
-class Clush : public QWidget
-{
+class Clush : public QWidget {
     Q_OBJECT
 
 public:

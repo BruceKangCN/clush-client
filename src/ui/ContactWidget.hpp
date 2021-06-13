@@ -1,17 +1,18 @@
 #ifndef CONTACTWIDGET_HPP
 #define CONTACTWIDGET_HPP
 
-#include <QWidget>
 #include <QStandardItemModel>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class ContactWidget; }
+namespace Ui {
+class ContactWidget;
+}
 QT_END_NAMESPACE
 
 namespace clush {
 
-class ContactWidget : public QWidget
-{
+class ContactWidget : public QWidget {
     Q_OBJECT
 
 public:

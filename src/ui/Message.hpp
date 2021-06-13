@@ -9,8 +9,7 @@ class Message;
 
 namespace clush {
 
-class Message : public QWidget
-{
+class Message : public QWidget {
     Q_OBJECT
 
 public:

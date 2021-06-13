@@ -1,6 +1,6 @@
 #include "Clush.hpp"
-#include "ui_Clush.h"
 #include "LoginDialog.hpp"
+#include "ui_Clush.h"
 
 namespace clush {
 

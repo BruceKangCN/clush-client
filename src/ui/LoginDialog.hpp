@@ -9,8 +9,7 @@ class LoginDialog;
 
 namespace clush {
 
-class LoginDialog : public QDialog
-{
+class LoginDialog : public QDialog {
     Q_OBJECT
 
 public:

@@ -2,9 +2,9 @@
 
 namespace clush::util {
 
-ClushFrame::ClushFrame(QObject* parent) : QObject(parent)
+ClushFrame::ClushFrame(QObject* parent)
+    : QObject(parent)
 {
-
 }
 
 void ClushFrame::setType(const MessageType type)

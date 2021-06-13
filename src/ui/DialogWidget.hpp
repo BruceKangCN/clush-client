@@ -1,17 +1,16 @@
 #ifndef DIALOGWIDGET_HPP
 #define DIALOGWIDGET_HPP
 
-#include <QWidget>
 #include <QTcpSocket>
+#include <QWidget>
 
 namespace Ui {
 class DialogWidget;
 }
 
-namespace clush{
+namespace clush {
 
-class DialogWidget : public QWidget
-{
+class DialogWidget : public QWidget {
     Q_OBJECT
 
 public:
