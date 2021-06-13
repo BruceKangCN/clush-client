@@ -18,9 +18,12 @@ public:
     ~LoginDialog();
 
 signals:
-    void requestLogin(const QString& user, const QString& password) const;
+    void requestLogin(const QString& user, const QString& password);
 
 private slots:
+    void loginSuccess();
+    void loginFailed() const;
+
     void on_exitBtn_clicked();
     void on_loginBtn_clicked();
 

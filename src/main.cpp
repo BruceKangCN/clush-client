@@ -1,4 +1,4 @@
-#include "Clush.hpp"
+#include "ui/Clush.hpp"
 
 #include <QApplication>
 
