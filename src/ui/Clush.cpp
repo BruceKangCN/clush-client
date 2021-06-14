@@ -21,9 +21,6 @@ Clush::Clush(QWidget* parent)
     ui->userWidget->setModel(userListModel);
     ui->groupWidget->setModel(groupListModel);
 
-    // TODO: read address from config file
-    socket->connectToHost("127.0.0.1", 9527);
-
     // connect to slots to handle login request and response
     connect(loginDialog, &LoginDialog::requestLogin, this, &Clush::handleLogin);
     connect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
@@ -45,9 +42,12 @@ Clush::~Clush()
 
 void Clush::handleLogin(const QString& user, const QString& password)
 {
+    // TODO: read address from config file
+    socket->connectToHost("127.0.0.1", 9527);
+
     util::ClushFrame frame = util::ClushFrame();
     frame.msgType = util::MessageType::LoginMessage;
-    frame.fromId = user.toUInt();
+    frame.fromId = user.toULongLong();
     frame.toId = 0;
 
     // convert QString password to sha256 value
@@ -72,6 +72,7 @@ void Clush::handleLoginResponse()
     if (message == QString("success").toUtf8()) {
         loginDialog->loginSuccess();
     } else {
+        socket->disconnectFromHost();
         loginDialog->loginFailed();
     }
 }
@@ -79,6 +80,7 @@ void Clush::handleLoginResponse()
 void Clush::handleLoginTimeout()
 {
     loginTimer->stop();
+    socket->disconnectFromHost();
     loginDialog->loginFailed();
 }
 
