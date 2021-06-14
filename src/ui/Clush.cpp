@@ -50,6 +50,7 @@ void Clush::handleLogin(const QString& user, const QString& password)
 }
 
 void Clush::handleMessage()
-{}
+{
+}
 
 } // namespace clush
