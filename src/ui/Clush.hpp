@@ -3,6 +3,7 @@
 
 #include "ContactWidget.hpp"
 #include "DialogWidget.hpp"
+#include "LoginDialog.hpp"
 
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -34,6 +35,7 @@ private:
     Ui::Clush* ui;
 
     QTcpSocket* socket;
+    LoginDialog* loginDialog;
     QStandardItemModel* userListModel;
     QStandardItemModel* groupListModel;
 };

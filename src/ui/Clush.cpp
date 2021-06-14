@@ -1,5 +1,4 @@
 #include "Clush.hpp"
-#include "LoginDialog.hpp"
 #include "ui_Clush.h"
 #include "util/ClushFrame.hpp"
 
@@ -11,6 +10,7 @@ Clush::Clush(QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::Clush)
     , socket(new QTcpSocket(this))
+    , loginDialog(new LoginDialog(this))
     , userListModel(new QStandardItemModel(this))
     , groupListModel(new QStandardItemModel(this))
 {
@@ -23,15 +23,13 @@ Clush::Clush(QWidget* parent)
     // TODO: read address from config file
     socket->connectToHost("127.0.0.1", 9527);
 
-    LoginDialog* loginDialog = new LoginDialog(this);
     // connect to slots to handle login request and response
     connect(loginDialog, &LoginDialog::requestLogin, this, &Clush::handleLogin);
     connect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
     loginDialog->exec();
 
-    // disconnect after login success, release the memory
+    // disconnect after login success
     disconnect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
-    delete loginDialog;
 
     // connect to normal message handling slot
     connect(socket, &QTcpSocket::readyRead, this, &Clush::handleMessage);
@@ -60,6 +58,18 @@ void Clush::handleLogin(const QString& user, const QString& password)
 
 void Clush::handleLoginResponse()
 {
+    util::ClushFrame frame = util::ClushFrame(socket->readAll());
+
+    if (frame.msgType != util::MessageType::LoginMessage || frame.fromId != 0) {
+        loginDialog->loginFailed();
+    }
+
+    QByteArray message = frame.content;
+    if (message == QString("success").toUtf8()) {
+        loginDialog->loginSuccess();
+    } else {
+        loginDialog->loginFailed();
+    }
 }
 
 void Clush::handleMessage()

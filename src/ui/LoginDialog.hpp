@@ -16,13 +16,13 @@ public:
     explicit LoginDialog(QWidget* parent = nullptr);
     ~LoginDialog();
 
+    void loginSuccess();
+    void loginFailed() const;
+
 signals:
     void requestLogin(const QString& user, const QString& password);
 
 private slots:
-    void loginSuccess();
-    void loginFailed() const;
-
     void on_exitBtn_clicked();
     void on_loginBtn_clicked();
 
