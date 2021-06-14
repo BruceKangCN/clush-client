@@ -16,17 +16,25 @@ Clush::Clush(QWidget* parent)
 {
     ui->setupUi(this);
 
+    // set models
     ui->userWidget->setModel(userListModel);
     ui->groupWidget->setModel(groupListModel);
 
     // TODO: read address from config file
     socket->connectToHost("127.0.0.1", 9527);
-    connect(socket, &QTcpSocket::readyRead, this, &Clush::handleMessage);
 
     LoginDialog* loginDialog = new LoginDialog(this);
+    // connect to slots to handle login request and response
     connect(loginDialog, &LoginDialog::requestLogin, this, &Clush::handleLogin);
+    connect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
     loginDialog->exec();
+
+    // disconnect after login success, release the memory
+    disconnect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
     delete loginDialog;
+
+    // connect to normal message handling slot
+    connect(socket, &QTcpSocket::readyRead, this, &Clush::handleMessage);
 }
 
 Clush::~Clush()
@@ -36,17 +44,22 @@ Clush::~Clush()
 
 void Clush::handleLogin(const QString& user, const QString& password)
 {
-    // TODO: handle login
     util::ClushFrame frame = util::ClushFrame();
     frame.msgType = util::MessageType::LoginMessage;
     frame.fromId = user.toUInt();
     frame.toId = 0;
 
+    // convert QString password to sha256 value
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
     frame.content = hash;
+    // update content size
     frame.updateSize();
 
     socket->write(frame.toBytes());
+}
+
+void Clush::handleLoginResponse()
+{
 }
 
 void Clush::handleMessage()

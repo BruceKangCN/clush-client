@@ -27,6 +27,7 @@ public:
 
 private slots:
     void handleLogin(const QString& user, const QString& password);
+    void handleLoginResponse();
     void handleMessage();
 
 private:

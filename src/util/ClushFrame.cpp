@@ -24,6 +24,7 @@ ClushFrame::ClushFrame(const QByteArray& bytes, QObject* parent)
 void ClushFrame::append(const QByteArray& other)
 {
     this->content.append(other);
+    updateSize(); // auto update size
 }
 
 void ClushFrame::updateSize()
