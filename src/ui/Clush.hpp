@@ -8,6 +8,7 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QTcpSocket>
+#include <QTimer>
 #include <QVector>
 #include <QWidget>
 
@@ -29,6 +30,7 @@ public:
 private slots:
     void handleLogin(const QString& user, const QString& password);
     void handleLoginResponse();
+    void handleLoginTimeout();
     void handleMessage();
 
 private:
@@ -36,6 +38,8 @@ private:
 
     QTcpSocket* socket;
     LoginDialog* loginDialog;
+    QTimer* loginTimer;
+
     QStandardItemModel* userListModel;
     QStandardItemModel* groupListModel;
 };

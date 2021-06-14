@@ -11,6 +11,7 @@ Clush::Clush(QWidget* parent)
     , ui(new Ui::Clush)
     , socket(new QTcpSocket(this))
     , loginDialog(new LoginDialog(this))
+    , loginTimer(new QTimer(this))
     , userListModel(new QStandardItemModel(this))
     , groupListModel(new QStandardItemModel(this))
 {
@@ -26,10 +27,12 @@ Clush::Clush(QWidget* parent)
     // connect to slots to handle login request and response
     connect(loginDialog, &LoginDialog::requestLogin, this, &Clush::handleLogin);
     connect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
+    connect(loginTimer, &QTimer::timeout, this, &Clush::handleLoginTimeout);
     loginDialog->exec();
 
     // disconnect after login success
     disconnect(socket, &QTcpSocket::readyRead, this, &Clush::handleLoginResponse);
+    connect(loginTimer, &QTimer::timeout, this, &Clush::handleLoginTimeout);
 
     // connect to normal message handling slot
     connect(socket, &QTcpSocket::readyRead, this, &Clush::handleMessage);
@@ -54,6 +57,7 @@ void Clush::handleLogin(const QString& user, const QString& password)
     frame.updateSize();
 
     socket->write(frame.toBytes());
+    loginTimer->start(30000); // timeout after 30s
 }
 
 void Clush::handleLoginResponse()
@@ -70,6 +74,12 @@ void Clush::handleLoginResponse()
     } else {
         loginDialog->loginFailed();
     }
+}
+
+void Clush::handleLoginTimeout()
+{
+    loginTimer->stop();
+    loginDialog->loginFailed();
 }
 
 void Clush::handleMessage()

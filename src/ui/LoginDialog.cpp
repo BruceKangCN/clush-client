@@ -7,8 +7,8 @@ LoginDialog::LoginDialog(QWidget* parent)
     : QDialog(parent)
     , ui(new Ui::LoginDialog)
 {
-    // hide title bar
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    // only enable the minimize button on title bar
+    this->setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint);
     ui->setupUi(this);
 }
 
@@ -36,7 +36,7 @@ void LoginDialog::on_loginBtn_clicked()
 
     // for test only, skip verification
     // TODO: verify
-    this->accept();
+    // this->accept();
 }
 
 void LoginDialog::loginSuccess()
