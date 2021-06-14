@@ -7,9 +7,18 @@ ClushFrame::ClushFrame(QObject* parent)
 {
 }
 
-void ClushFrame::setType(const MessageType type)
+ClushFrame::ClushFrame(const QByteArray& bytes, QObject* parent)
 {
-    this->msgType = type;
+    // return an empty frame if invalid
+    if (bytes.size() < 28) {
+        return;
+    }
+
+    msgType = static_cast<MessageType>(bytes.mid(0, 4).toUInt());
+    fromId = bytes.mid(4, 8).toULongLong();
+    toId = bytes.mid(12, 8).toULongLong();
+    size = bytes.mid(20, 8).toULongLong();
+    content = bytes.mid(28);
 }
 
 void ClushFrame::append(const QByteArray& other)

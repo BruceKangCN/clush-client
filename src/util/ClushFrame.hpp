@@ -20,17 +20,18 @@ class ClushFrame : public QObject {
 public:
     static QByteArray quint32ToBytes(quint32 n);
     static QByteArray quint64ToBytes(quint64 n);
+    static ClushFrame fromBytes(const QByteArray& bytes);
 
     explicit ClushFrame(QObject* parent = nullptr);
+    explicit ClushFrame(const QByteArray& bytes, QObject* parent = nullptr);
 
-    void setType(const MessageType type);
     void append(const QByteArray& other);
     void updateSize();
     QByteArray toBytes();
 
 signals:
 
-private:
+public:
     MessageType msgType;
     quint64 fromId;
     quint64 toId;

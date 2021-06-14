@@ -27,10 +27,12 @@ public:
 
 private slots:
     void handleLogin(const QString& user, const QString& password);
+    void handleMessage();
 
 private:
     Ui::Clush* ui;
 
+    QTcpSocket* socket;
     QStandardItemModel* userListModel;
     QStandardItemModel* groupListModel;
 };
